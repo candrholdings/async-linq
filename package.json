@@ -3,18 +3,21 @@
   "version": "1.0.0",
   "description": "Asynchronous LINQ library for JavaScript",
   "keywords": [
-      "async",
-      "linq"
+    "async",
+    "linq"
   ],
   "bugs": {
-      "url": "https://github.com/candrholdings/async-linq/issues"
+    "url": "https://github.com/candrholdings/async-linq/issues"
   },
   "license": "MIT",
   "email": "william.wong@candrholdings.com",
   "main": "linq3.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/candrholdings/async-linq.git"
+    "type": "git",
+    "url": "https://github.com/candrholdings/async-linq.git"
+  },
+  "scripts": {
+    "test": "vows test/* --spec"
   },
   "devDependencies": {
     "vows": "^0.8.1"

@@ -50,4 +50,4 @@
         },
         'Invalid predicate': util.error(linq({}).count('invalid'), 'invalid predicate')
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));

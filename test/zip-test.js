@@ -100,4 +100,4 @@
         'Missing result selector': util.error(linq({}).zip({}), 'missing resultSelector'),
         'Invalid result selector': util.error(linq({}).zip({}, 'invalid'), 'invalid resultSelector')
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));

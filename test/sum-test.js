@@ -62,4 +62,4 @@
         },
         'Invalid selector': util.error(linq({}).sum('invalid'), 'invalid selector')
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));

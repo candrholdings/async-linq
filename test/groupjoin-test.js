@@ -1,8 +1,8 @@
 !function (assert, vows, linq, util) {
     'use strict';
 
-    vows.describe('linq.join.array').addBatch({
-        'Join a structure': {
+    vows.describe('linq.groupJoin.array').addBatch({
+        'Group join a structure': {
             topic: function () {
                 var magnus = { name: 'Hedlund, Magnus' },
                     terry = { name: 'Adams, Terry' },
@@ -22,40 +22,40 @@
                     boots: boots,
                     whiskers: whiskers,
                     daisy: daisy,
-                    result: linq([magnus, terry, charlotte, donald]).join([barley, boots, whiskers, daisy], function (person) { return person; }, function (pet) { return pet.owner; }, function (person, pet) {
+                    result: linq([magnus, terry, charlotte, donald]).groupJoin([barley, boots, whiskers, daisy], function (person) { return person; }, function (pet) { return pet.owner; }, function (person, pets) {
                         return {
                             owner: person,
-                            pet: pet
+                            pets: pets
                         };
-                    }, function (left, right) {
-                        return left.name.toLowerCase() === right.name.toLowerCase();
+                    }, function (leftOwner, rightOwner) {
+                        return leftOwner.name.toLowerCase() === rightOwner.name.toLowerCase();
                     }).run()
                 };
             },
             'Should return a grouped structure': function (topic) {
                 assert.deepEqual(topic.result, [{
                     owner: topic.magnus,
-                    pet: topic.daisy
+                    pets: [topic.daisy]
                 }, {
                     owner: topic.terry,
-                    pet: topic.barley
-                }, {
-                    owner: topic.terry,
-                    pet: topic.boots
+                    pets: [topic.barley, topic.boots]
                 }, {
                     owner: topic.charlotte,
-                    pet: topic.whiskers
+                    pets: [topic.whiskers]
+                }, {
+                    owner: topic.donald,
+                    pets: []
                 }]);
             }
         },
-        'Invalid outer key selector': util.error(linq([]).join([], 'invalid'), 'invalid outerKeySelector'),
-        'Invalid inner key selector': util.error(linq([]).join([], null, 'invalid'), 'invalid innerKeySelector'),
-        'Invalid selector': util.error(linq([]).join([], null, null, 'invalid'), 'invalid selector'),
-        'Invalid equality comparer': util.error(linq([]).join([], null, null, null, 'invalid'), 'invalid comparer')
+        'Invalid outer key selector': util.error(linq([]).groupJoin([], 'invalid'), 'invalid outerKeySelector'),
+        'Invalid inner key selector': util.error(linq([]).groupJoin([], null, 'invalid'), 'invalid innerKeySelector'),
+        'Invalid selector': util.error(linq([]).groupJoin([], null, null, 'invalid'), 'invalid selector'),
+        'Invalid equality comparer': util.error(linq([]).groupJoin([], null, null, null, 'invalid'), 'invalid comparer')
     }).export(module);
 
-    vows.describe('linq.join.map').addBatch({
-        'Join a structure': {
+    vows.describe('linq.groupJoin.map').addBatch({
+        'Group join a structure': {
             topic: function () {
                 var magnus = { name: 'Hedlund, Magnus' },
                     terry = { name: 'Adams, Terry' },
@@ -80,15 +80,15 @@
                         terry: terry,
                         charlotte: charlotte,
                         donald: donald
-                    }).join({
+                    }).groupJoin({
                         barley: barley,
                         boots: boots,
                         whiskers: whiskers,
                         daisy: daisy
-                    }, function (person, name) { return name; }, function (pet) { return pet.owner; }, function (person, pet) {
+                    }, function (person, name) { return name; }, function (pet) { return pet.owner; }, function (person, pets) {
                         return {
                             owner: person,
-                            pet: pet
+                            pets: pets
                         };
                     }, function (left, right) {
                         return left.toLowerCase() === right.toLowerCase();
@@ -97,27 +97,35 @@
             },
             'Should return a grouped structure': function (topic) {
                 assert.deepEqual(topic.result, {
-                    magnus: [{
+                    magnus: {
                         owner: topic.magnus,
-                        pet: topic.daisy
-                    }],
-                    terry: [{
+                        pets: {
+                            daisy: topic.daisy
+                        }
+                    },
+                    terry: {
                         owner: topic.terry,
-                        pet: topic.barley
-                    }, {
-                        owner: topic.terry,
-                        pet: topic.boots
-                    }],
-                    charlotte: [{
+                        pets: {
+                            barley: topic.barley,
+                            boots: topic.boots
+                        }
+                    },
+                    charlotte: {
                         owner: topic.charlotte,
-                        pet: topic.whiskers
-                    }]
+                        pets: {
+                            whiskers: topic.whiskers
+                        }
+                    },
+                    donald: {
+                        owner: topic.donald,
+                        pets: {}
+                    }
                 });
             }
         },
-        'Invalid outer key selector': util.error(linq({}).join({}, 'invalid'), 'invalid outerKeySelector'),
-        'Invalid inner key selector': util.error(linq({}).join({}, null, 'invalid'), 'invalid innerKeySelector'),
-        'Invalid selector': util.error(linq({}).join({}, null, null, 'invalid'), 'invalid selector'),
-        'Invalid equality comparer': util.error(linq({}).join({}, null, null, null, 'invalid'), 'invalid comparer')
+        'Invalid outer key selector': util.error(linq({}).groupJoin({}, 'invalid'), 'invalid outerKeySelector'),
+        'Invalid inner key selector': util.error(linq({}).groupJoin({}, null, 'invalid'), 'invalid innerKeySelector'),
+        'Invalid selector': util.error(linq({}).groupJoin({}, null, null, 'invalid'), 'invalid selector'),
+        'Invalid equality comparer': util.error(linq({}).groupJoin({}, null, null, null, 'invalid'), 'invalid comparer')
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));

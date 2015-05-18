@@ -42,4 +42,4 @@
         'Invalid func': util.error(linq({}).aggregate(0, 'invalid'), 'invalid func'),
         'Invalid resultSelector': util.error(linq({}).aggregate(0, function () {}, 'invalid'), 'invalid resultSelector')
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));

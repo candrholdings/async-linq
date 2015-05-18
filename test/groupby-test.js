@@ -121,4 +121,4 @@
         'Invalid result selector': util.error(linq({}).groupBy(null, null, 'invalid'), 'invalid resultSelector'),
         'Invalid comparer': util.error(linq({}).groupBy(null, null, null, 'invalid'), 'invalid comparer'),
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));

@@ -86,4 +86,4 @@
         },
         'Invalid comparer': util.error(linq({}).contains(0, 'invalid'), 'invalid comparer')
     }).export(module);
-}(require('assert'), require('vows'), require('../linq3'), require('./lib/util'));
+}(require('assert'), require('vows'), require('../linq3'), require('../test-util'));
