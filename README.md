@@ -1,7 +1,7 @@
 # async-linq
-Asynchronous LINQ library for JavaScript, small and strengthened by lots of unit tests
+Asynchronous LINQ library for JavaScript, small, zero-dependency and strengthened by unit tests
 
-<img src="https://travis-ci.org/candrholdings/async-linq.svg?branch=master" />
+[<img src="https://travis-ci.org/candrholdings/async-linq.svg?branch=master" />](https://travis-ci.org/candrholdings/async-linq)
 
 Implementation status
 ---

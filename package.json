@@ -1,6 +1,6 @@
 {
   "name": "async-linq",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Asynchronous LINQ library for JavaScript",
   "keywords": [
     "async",
