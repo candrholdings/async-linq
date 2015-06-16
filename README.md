@@ -1,4 +1,6 @@
 # async-linq
+
+[![Join the chat at https://gitter.im/candrholdings/async-linq](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/candrholdings/async-linq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Asynchronous LINQ library for JavaScript, small, zero-dependency and strengthened by unit tests
 
 [<img src="https://travis-ci.org/candrholdings/async-linq.svg?branch=master" />](https://travis-ci.org/candrholdings/async-linq)
