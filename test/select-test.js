@@ -79,6 +79,23 @@
             'Should throws': function (topic) {
                 assert(topic instanceof Error);
             }
+        },
+
+        'When an async run finished with an exception callback': {
+            topic: function () {
+                var callback = this.callback,
+                    count = 0;
+
+                linq({}).async.select(assert.fail).run(function (err) {
+                    if (!count++) {
+                        setTimeout(callback, 0);
+                        throw new Error();
+                    } else {
+                        assert.fail();
+                    }
+                })
+            },
+            'Should ignore callback': function () {}
         }
     }).export(module);
 }(

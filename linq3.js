@@ -2351,7 +2351,12 @@
         });
 
         that.run = function (callback) {
-            return that._run(input, callback);
+            return that._run(input, function () {
+                // If callback throw an exception, should silently ignore it and not calling it again
+                try {
+                    callback.apply(that, arguments);
+                } catch (ex) {}
+            });
         };
 
         that._run = function (intermediate, callback) {
