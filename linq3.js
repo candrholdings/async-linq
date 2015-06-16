@@ -2354,7 +2354,7 @@
             return that._run(input, function () {
                 // If callback throw an exception, should silently ignore it and not calling it again
                 try {
-                    callback.apply(that, arguments);
+                    callback.apply(this, arguments);
                 } catch (ex) {}
             });
         };
